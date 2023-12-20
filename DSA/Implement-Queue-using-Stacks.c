@@ -41,41 +41,41 @@ typedef struct {
 } MyQueue;
 
 
-MyQueue* myQueueCreate() {
-    MyQueue* que = (MyQueue*) malloc(sizeof (MyQueue));
+MyQueue *myQueueCreate() {
+    MyQueue *que = (MyQueue *) malloc(sizeof(MyQueue));
     initialize(&que->st1, 100);
     initialize(&que->st2, 100);
     return que;
 }
 
-void myQueuePush(MyQueue* obj, int x) {
+void myQueuePush(MyQueue *obj, int x) {
     if (isEmpty(&obj->st1)) {
         push(&obj->st1, x);
         return;
     }
 
-    while(!isEmpty(&obj->st1)){
+    while (!isEmpty(&obj->st1)) {
         push(&obj->st2, pop(&obj->st1));
     }
     push(&obj->st1, x);
 
-    while(!isEmpty(&obj->st2)){
+    while (!isEmpty(&obj->st2)) {
         push(&obj->st1, pop(&obj->st2));
     }
 }
 
-int myQueuePop(MyQueue* obj) {
+int myQueuePop(MyQueue *obj) {
     return pop(&obj->st1);
 }
 
-int myQueuePeek(MyQueue* obj) {
+int myQueuePeek(MyQueue *obj) {
     return top(&obj->st1);
 }
 
-bool myQueueEmpty(MyQueue* obj) {
+bool myQueueEmpty(MyQueue *obj) {
     return isEmpty(&obj->st1);
 }
 
-void myQueueFree(MyQueue* obj) {
-    while(!isEmpty(&obj->st1)) pop(&obj->st1);
+void myQueueFree(MyQueue *obj) {
+    while (!isEmpty(&obj->st1)) pop(&obj->st1);
 }

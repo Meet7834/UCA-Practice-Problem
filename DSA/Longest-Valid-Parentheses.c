@@ -24,22 +24,22 @@ bool push(struct Stack *st, int ele) {
     return true;
 }
 
-int pop(struct Stack *st) { return (isEmpty(st)) ? -1 : (st->arr[st->top--]);}
+int pop(struct Stack *st) { return (isEmpty(st)) ? -1 : (st->arr[st->top--]); }
 
-int top(struct Stack *st) { return (isEmpty(st)) ? -1 : (st->arr[st->top]);}
+int top(struct Stack *st) { return (isEmpty(st)) ? -1 : (st->arr[st->top]); }
 
-int longestValidParentheses(char* s) {
+int longestValidParentheses(char *s) {
     int maxi = 0;
     struct Stack st;
     initialize(&st, strlen(s));
     push(&st, -1);
 
-    for(int i=0; i<strlen(s); i++){
+    for (int i = 0; i < strlen(s); i++) {
         if (s[i] == '(') push(&st, i);
         else {
             pop(&st);
             if (isEmpty(&st)) push(&st, i);
-            else  maxi = ( maxi > i - top(&st)) ? maxi : i - top(&st);
+            else maxi = (maxi > i - top(&st)) ? maxi : i - top(&st);
         }
     }
     return maxi;

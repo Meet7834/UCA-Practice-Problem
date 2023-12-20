@@ -37,40 +37,36 @@ int top(struct Stack *st) {
     return (st->arr[st->top]);
 }
 
-int postfixEvaluation(char* str, int len){
+int postfixEvaluation(char *str, int len) {
     // initializing the stack
-    struct Stack *st = (struct Stack*) malloc(sizeof(struct Stack));
+    struct Stack *st = (struct Stack *) malloc(sizeof(struct Stack));
     initialize(st, len);
 
-    for(int i=1; i<len; i++){
+    for (int i = 1; i < len; i++) {
         // if the char is a number we will continue to add up to the number until a space is found
-        if (str[i] >= '0' && str[i] <= '9'){
+        if (str[i] >= '0' && str[i] <= '9') {
             int num = 0;
-            while(str[i] != ' '){
+            while (str[i] != ' ') {
                 num = (num * 10) + (str[i] - '0');
                 i++;
             }
             push(st, num);
-        }
-        else if (str[i] == ' ') continue; // if its space we just continue
-        // if its any of the other operations we pop both elements in the stack and perform the operations on them
-        // note: the reason we do num2 - num1 (also valid for '/' ) and not num1 - num2 is because num2 was the first number to go inside the stack so the order of the operations stays the same
-        else if (str[i] == '+'){
+        } else if (str[i] == ' ') continue; // if its space we just continue
+            // if its any of the other operations we pop both elements in the stack and perform the operations on them
+            // note: the reason we do num2 - num1 (also valid for '/' ) and not num1 - num2 is because num2 was the first number to go inside the stack so the order of the operations stays the same
+        else if (str[i] == '+') {
             int num1 = pop(st);
             int num2 = pop(st);
             push(st, num1 + num2);
-        }
-        else if (str[i] == '-'){
+        } else if (str[i] == '-') {
             int num1 = pop(st);
             int num2 = pop(st);
             push(st, num2 - num1);
-        }
-        else if (str[i] == '*'){
+        } else if (str[i] == '*') {
             int num1 = pop(st);
             int num2 = pop(st);
             push(st, num1 * num2);
-        }
-        else if (str[i] == '/'){
+        } else if (str[i] == '/') {
             int num1 = pop(st);
             int num2 = pop(st);
             push(st, num2 / num1);
@@ -82,12 +78,12 @@ int postfixEvaluation(char* str, int len){
 int main() {
     int n;
     scanf("%d", &n);
-    while(n--){
+    while (n--) {
 
         // taking input for the given test case
-        char* str = (char*) malloc(1000 * sizeof(char));
+        char *str = (char *) malloc(1000 * sizeof(char));
         int len = 0;
-        while(1) {
+        while (1) {
             char ch;
             scanf("%c", &ch);
             str[len++] = ch;
